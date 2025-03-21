@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>California Roleplay | Emergency Response: Liberty County</title>
+    <title>California Roleplay - Emergency Response: Liberty County</title>
     <style>
+        /* Base Styles */
         :root {
-            --primary-blue: #1e88e5;
-            --secondary-blue: #0d47a1;
-            --tertiary-blue: #64b5f6;
-            --accent-green: #43a047;
-            --dark-bg: #121212;
-            --darker-bg: #0a0a0a;
-            --text-color: #e0e0e0;
+            --primary-blue: #0066cc;
+            --secondary-blue: #0044aa;
+            --dark-blue: #001a33;
+            --light-blue: #4d94ff;
+            --accent-green: #00cc99;
+            --dark-bg: #0d1117;
+            --darker-bg: #090c10;
+            --text-primary: #f0f6fc;
+            --text-secondary: #c9d1d9;
         }
         
         * {
@@ -22,582 +25,886 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             background-color: var(--dark-bg);
-            color: var(--text-color);
+            color: var(--text-primary);
+            line-height: 1.6;
             overflow-x: hidden;
         }
         
-        .bloom {
-            filter: drop-shadow(0 0 8px var(--primary-blue));
+        h1, h2, h3, h4 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
         }
         
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--light-blue);
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-green);
+        }
+        
+        /* Container */
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 2rem;
         }
         
-        /* Header Styles */
+        /* Header */
         header {
-            background-color: var(--darker-bg);
-            border-bottom: 2px solid var(--primary-blue);
+            padding: 2rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(30, 136, 229, 0.3);
+            transition: background-color 0.3s ease;
         }
         
-        .navbar {
+        header.scrolled {
+            background-color: rgba(9, 12, 16, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
         }
         
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo img {
-            height: 50px;
-            animation: pulse 3s infinite;
-        }
-        
-        .logo h1 {
-            color: white;
             font-size: 1.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--text-primary);
         }
         
         .logo span {
             color: var(--primary-blue);
         }
         
-        .nav-links {
+        /* Navigation Menu Button */
+        .nav-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
             display: flex;
-            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1001;
         }
         
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
+        .nav-toggle span {
             position: relative;
+            width: 28px;
+            height: 3px;
+            background-color: var(--primary-blue);
             transition: all 0.3s ease;
         }
         
-        .nav-links a:hover {
-            color: var(--primary-blue);
-        }
-        
-        .nav-links a::after {
+        .nav-toggle span::before,
+        .nav-toggle span::after {
             content: '';
             position: absolute;
+            width: 28px;
+            height: 3px;
+            background-color: var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-toggle span::before {
+            transform: translateY(-8px);
+        }
+        
+        .nav-toggle span::after {
+            transform: translateY(8px);
+        }
+        
+        .nav-toggle.active span {
+            background-color: transparent;
+        }
+        
+        .nav-toggle.active span::before {
+            transform: rotate(45deg);
+        }
+        
+        .nav-toggle.active span::after {
+            transform: rotate(-45deg);
+        }
+        
+        /* Hidden Navigation */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--darker-bg);
+            padding: 6rem 2rem 2rem;
+            transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1000;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .nav-menu.active {
+            right: 0;
+        }
+        
+        .nav-menu ul {
+            list-style: none;
+        }
+        
+        .nav-menu ul li {
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-menu ul li a {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            display: block;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-menu ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
             width: 0;
             height: 2px;
-            bottom: -5px;
-            left: 0;
             background-color: var(--primary-blue);
             transition: width 0.3s ease;
         }
         
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .menu-toggle {
-            display: none;
-            cursor: pointer;
+        .nav-menu ul li a:hover::after {
+            width: 50%;
         }
         
         /* Hero Section */
         .hero {
+            position: relative;
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800') no-repeat center center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            position: relative;
             overflow: hidden;
-            margin-top: 70px;
+            background: linear-gradient(135deg, var(--dark-bg), var(--dark-blue));
         }
         
         .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(77, 148, 255, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(0, 102, 204, 0.6);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-blue);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        /* Sections */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        section:nth-child(odd) {
+            background-color: var(--darker-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-blue);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .about-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background-color: rgba(13, 17, 23, 0.7);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 148, 255, 0.1);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background-color: var(--primary-blue);
+            transition: height 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(77, 148, 255, 0.3);
+        }
+        
+        .feature-card:hover::before {
+            height: 100%;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Rules Section */
+        .rules-list {
+            counter-reset: rule-counter;
+            list-style: none;
+        }
+        
+        .rule-item {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background-color: rgba(13, 17, 23, 0.7);
+            border-radius: 8px;
+            position: relative;
+            padding-left: 3.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(77, 148, 255, 0.1);
+        }
+        
+        .rule-item:hover {
+            transform: translateX(10px);
+            border-color: rgba(77, 148, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .rule-item::before {
+            counter-increment: rule-counter;
+            content: counter(rule-counter);
+            position: absolute;
+            left: 1rem;
+            top: 1.5rem;
+            width: 1.8rem;
+            height: 1.8rem;
+            background-color: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(77, 148, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question {
+            padding: 1.2rem;
+            background-color: rgba(13, 17, 23, 0.7);
+            color: var(--text-primary);
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            background-color: rgba(9, 12, 16, 0.5);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 1.2rem;
+            max-height: 500px;
+        }
+        
+        .faq-item:hover {
+            border-color: rgba(77, 148, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Join Us Section */
+        .join-us {
+            text-align: center;
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--dark-blue), var(--dark-bg));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .join-us::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, transparent 50%, var(--dark-bg) 150%);
+            background-image: url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
         }
         
-        .hero-content {
-            z-index: 10;
-            padding: 20px;
-            max-width: 800px;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            color: white;
-            text-shadow: 0 0 10px rgba(30, 136, 229, 0.7);
-            opacity: 0;
-            animation: fadeIn 1s ease forwards 0.5s;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards 1s;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--primary-blue);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards 1.5s, pulse 3s infinite 2.5s;
-        }
-        
-        .btn:hover {
-            background-color: var(--secondary-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Features Section */
-        .features {
-            padding: 100px 0;
-            background-color: var(--darker-bg);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            font-size: 2.5rem;
-            color: white;
+        .join-us-content {
             position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background-color: var(--primary-blue);
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s ease forwards;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 20px rgba(30, 136, 229, 0.3);
-        }
-        
-        .feature-card i {
-            font-size: 3rem;
-            color: var(--primary-blue);
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .feature-card p {
-            line-height: 1.6;
-        }
-        
-        /* Call to Action */
-        .cta {
-            padding: 100px 0;
-            text-align: center;
-            background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--tertiary-blue) 100%);
-        }
-        
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: white;
-        }
-        
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+            z-index: 1;
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            color: rgba(255, 255, 255, 0.9);
+            margin: 0 auto;
         }
         
-        .btn-secondary {
-            background-color: transparent;
-            border: 2px solid white;
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
         
-        .btn-secondary:hover {
-            background-color: white;
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(13, 17, 23, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             color: var(--primary-blue);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(77, 148, 255, 0.2);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            background-color: var(--primary-blue);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.6);
         }
         
         /* Footer */
         footer {
             background-color: var(--darker-bg);
-            padding: 60px 0 30px;
-            border-top: 2px solid var(--primary-blue);
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3 {
-            color: white;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--primary-blue);
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column ul li a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-column ul li a:hover {
-            color: var(--primary-blue);
-            padding-left: 5px;
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--text-color);
-            transition: all 0.3s ease;
-        }
-        
-        .social-icons a:hover {
-            background-color: var(--primary-blue);
-            color: white;
-            transform: translateY(-5px);
-        }
-        
-        .footer-bottom {
+            padding: 3rem 0;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(77, 148, 255, 0.1);
         }
         
-        .footer-bottom p {
-            color: rgba(255, 255, 255, 0.6);
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-link {
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary-blue);
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
         
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        /* Glow Effect */
+        .glow {
+            position: relative;
         }
         
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .glow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 20px rgba(0, 102, 204, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: inherit;
+            z-index: -1;
         }
         
-        @keyframes pulse {
-            0% {
-                filter: drop-shadow(0 0 0px var(--primary-blue));
-            }
-            50% {
-                filter: drop-shadow(0 0 10px var(--primary-blue));
-            }
-            100% {
-                filter: drop-shadow(0 0 0px var(--primary-blue));
-            }
+        .glow:hover::after {
+            opacity: 1;
         }
         
-        /* Responsive styles */
+        /* Particle Animation */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 90px;
-                left: 0;
-                width: 100%;
-                background-color: var(--darker-bg);
-                padding: 20px;
-                text-align: center;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            .hero h1 {
+            .hero-title {
                 font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                margin-top: 2rem;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
-    <!-- Header -->
+    <!-- Header & Navigation -->
     <header>
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo">
-                    <img src="/api/placeholder/100/100" alt="California Roleplay Logo" class="bloom">
-                    <h1>California <span>Roleplay</span></h1>
-                </div>
-                <div class="nav-links">
-                    <a href="index.html" class="active">Home</a>
-                    <a href="rules.html">Rules</a>
-                    <a href="faq.html">FAQ</a>
-                    <a href="about.html">About</a>
-                    <a href="join.html">Join Us</a>
-                </div>
-                <div class="menu-toggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </nav>
+        <div class="container header-container">
+            <div class="logo">California<span>RP</span></div>
+            <button class="nav-toggle">
+                <span></span>
+            </button>
         </div>
     </header>
-
+    
+    <!-- Hidden Navigation Menu -->
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#rules">Rules</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#join-us">Join Us</a></li>
+        </ul>
+    </nav>
+    
     <!-- Hero Section -->
-    <section class="hero">
+    <section id="home" class="hero">
+        <div class="particles"></div>
         <div class="hero-content">
-            <h1>Welcome to <span style="color: var(--primary-blue);">California Roleplay</span></h1>
-            <p>Join the most immersive Emergency Response: Liberty County roleplay experience. Patrol the streets, respond to emergencies, and become part of our thriving community.</p>
-            <a href="join.html" class="btn bloom">Join Server</a>
+            <h1 class="hero-title">California Roleplay</h1>
+            <h2 class="hero-subtitle">Emergency Response: Liberty County</h2>
+            <div>
+                <a href="#join-us" class="btn btn-primary glow">Join Server</a>
+                <a href="#about" class="btn btn-secondary glow">Learn More</a>
+            </div>
         </div>
     </section>
-
-    <!-- Features Section -->
-    <section class="features">
+    
+    <!-- About Section -->
+    <section id="about">
         <div class="container">
-            <h2 class="section-title">Why Choose Us</h2>
-            <div class="features-grid">
-                <div class="feature-card" style="animation-delay: 0.1s;">
-                    <i class="fas fa-user-shield"></i>
-                    <h3>Professional Staff</h3>
-                    <p>Our dedicated team ensures a fair and enjoyable experience for all players.</p>
+            <div class="section-header">
+                <h2 class="section-title">About Us</h2>
+                <p>Discover the ultimate roleplay experience in Emergency Response: Liberty County</p>
+            </div>
+            <div class="about-content">
+                <div class="about-info">
+                    <h3>Welcome to California Roleplay</h3>
+                    <p>California Roleplay is a premier community for Emergency Response: Liberty County on Roblox. Our server offers an immersive roleplay experience with realistic scenarios, professional staff, and a friendly community.</p>
+                    <p>Whether you're looking to serve as law enforcement, fight fires as a firefighter, save lives as a paramedic, or live as a civilian in our vibrant city, we offer a realistic and engaging environment for all players.</p>
+                    <a href="#features" class="btn btn-primary glow">Explore Features</a>
                 </div>
-                <div class="feature-card" style="animation-delay: 0.3s;">
-                    <i class="fas fa-comments"></i>
-                    <h3>Active Community</h3>
-                    <p>Join hundreds of active players in realistic emergency scenarios.</p>
-                </div>
-                <div class="feature-card" style="animation-delay: 0.5s;">
-                    <i class="fas fa-file-contract"></i>
-                    <h3>Realistic Roleplay</h3>
-                    <p>Experience authentic police, fire, and EMS protocols and procedures.</p>
-                </div>
-                <div class="feature-card" style="animation-delay: 0.7s;">
-                    <i class="fas fa-users"></i>
-                    <h3>Supportive Environment</h3>
-                    <p>New to roleplay? Our community will help you learn the ropes.</p>
-                </div>
-                <div class="feature-card" style="animation-delay: 0.9s;">
-                    <i class="fas fa-car"></i>
-                    <h3>Custom Vehicles</h3>
-                    <p>Drive California-themed emergency vehicles with custom liveries.</p>
-                </div>
-                <div class="feature-card" style="animation-delay: 1.1s;">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h3>Regular Events</h3>
-                    <p>Participate in scheduled patrol sessions and special scenarios.</p>
+                <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="California Roleplay Server" />
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Call to Action -->
-    <section class="cta">
+    
+    <!-- Features Section -->
+    <section id="features">
         <div class="container">
-            <h2>Ready to Join Our Community?</h2>
-            <p>Experience the most realistic Emergency Response: Liberty County roleplay server. Join our Discord to get started and become part of the California Roleplay family today!</p>
-            <a href="join.html" class="btn">Join Discord</a>
-            <a href="rules.html" class="btn btn-secondary">View Rules</a>
+            <div class="section-header">
+                <h2 class="section-title">Our Features</h2>
+                <p>What makes California Roleplay stand out from the rest</p>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🚔</div>
+                    <h3 class="feature-title">Realistic Roleplay</h3>
+                    <p>Experience authentic emergency services roleplay with detailed protocols and procedures.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👮</div>
+                    <h3 class="feature-title">Professional Staff</h3>
+                    <p>Our dedicated team ensures a fair and enjoyable experience for all community members.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚒</div>
+                    <h3 class="feature-title">Multiple Departments</h3>
+                    <p>Join Law Enforcement, Fire Department, EMS, or Civilian roles with unique experiences.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌇</div>
+                    <h3 class="feature-title">Active Community</h3>
+                    <p>Join a thriving community with regular events, trainings, and opportunities for advancement.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="feature-title">Custom Systems</h3>
+                    <p>Enjoy unique custom scripts and systems that enhance the roleplay experience.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎖️</div>
+                    <h3 class="feature-title">Rank Progression</h3>
+                    <p>Advance through ranks based on your dedication, activity, and roleplay quality.</p>
+                </div>
+            </div>
         </div>
     </section>
-
+    
+    <!-- Rules Section -->
+    <section id="rules">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Server Rules</h2>
+                <p>Please follow these guidelines to ensure a great experience for everyone</p>
+            </div>
+            <ul class="rules-list">
+                <li class="rule-item">
+                    <h3>Respect All Players</h3>
+                    <p>Treat everyone with respect. Harassment, discrimination, and bullying will not be tolerated.</p>
+                </li>
+                <li class="rule-item">
+                    <h3>Realistic Roleplay</h3>
+                    <p>Maintain realism in all scenarios. Avoid unrealistic actions that would break immersion.</p>
+                </li>
+                <li class="rule-item">
+                    <h3>No Metagaming</h3>
+                    <p>Do not use information your character wouldn't know in-game. Keep roleplay and real-life separate.</p>
+                </li>
+                <li class="rule-item">
+                    <h3>Follow Chain of Command</h3>
+                    <p>Respect department hierarchies and follow orders from superior officers.</p>
+                </li>
+                <li class="rule-item">
+                    <h3>Proper Communications</h3>
+                    <p>Use appropriate radio codes and maintain professional communication during roleplay.</p>
+                </li>
+                <li class="rule-item">
+                    <h3>No Combat Logging</h3>
+                    <p>Leaving the game to avoid roleplay consequences is prohibited.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our server</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">How do I join the server?</div>
+                    <div class="faq-answer">
+                        <p>To join our server, you'll need to join our Discord server first. There, you'll find the link to our Roblox group and server. Follow the instructions in the #getting-started channel to complete the application process.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I apply for a department?</div>
+                    <div class="faq-answer">
+                        <p>Department applications are available on our Discord server. You'll need to complete the application form and attend an interview with department staff. Successful applicants will receive training before being accepted.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What are the age requirements?</div>
+                    <div class="faq-answer">
+                        <p>Players must be at least 13 years old to join our community. Some department positions may have higher age requirements due to maturity needs.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Are there scheduled server events?</div>
+                    <div class="faq-answer">
+                        <p>Yes! We host regular events including patrol operations, training sessions, disaster scenarios, and community gatherings. Check the events calendar on our Discord for upcoming activities.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can I transfer from another ER:LC server?</div>
+                    <div class="faq-answer">
+                        <p>We consider transfers from other servers on a case-by-case basis. You'll need to provide references and service history. Contact an admin through Discord for more information.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Join Us Section -->
+    <section id="join-us" class="join-us">
+        <div class="join-us-content">
+            <h2 class="section-title">Join Our Community</h2>
+            <p>Ready to start your journey with California Roleplay? Join our Discord server to get started and become part of our growing community!</p>
+            <a href="#" class="btn btn-primary glow">Join Discord Server</a>
+            <div class="social-links">
+                <a href="#" class="social-link">D</a>
+                <a href="#" class="social-link">R</a>
+                <a href="#" class="social-link">T</a>
+                <a href="#" class="social-link">Y</a>
+            </div>
+        </div>
+    </section>
+    
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>California Roleplay</h3>
-                    <p>The premier roleplay experience for Emergency Response: Liberty County on Roblox.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="rules.html">Rules</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="join.html">Join Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul>
-                        <li><a href="#">Police Handbook</a></li>
-                        <li><a href="#">Fire/EMS Protocols</a></li>
-                        <li><a href="#">Civilian Guidelines</a></li>
-                        <li><a href="#">Server Status</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact</h3>
-                    <ul>
-                        <li><a href="#">Support Team</a></li>
-                        <li><a href="#">Report a Bug</a></li>
-                        <li><a href="#">Join Staff Team</a></li>
-                        <li><a href="#">Partnership Inquiries</a></li>
-                    </ul>
-                </div>
+            <div class="footer-links">
+                <a href="#home" class="footer-link">Home</a>
+                <a href="#about" class="footer-link">About</a>
+                <a href="#features" class="footer-link">Features</a>
+                <a href="#rules" class="footer-link">Rules</a>
+                <a href="#faq" class="footer-link">FAQ</a>
+                <a href="#join-us" class="footer-link">Join Us</a>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 California Roleplay. All rights reserved. Not affiliated with Roblox or Emergency Response: Liberty County.</p>
-            </div>
+            <p class="copyright">© 2025 California Roleplay. All rights reserved. Not affiliated with Roblox or Emergency Response: Liberty County.</p>
         </div>
     </footer>
-
+    
+    <!-- JavaScript -->
     <script>
-        // Menu Toggle
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
+        // Navigation Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
         });
         
-        // Scroll Animation for Feature Cards
-        document.addEventListener('DOMContentLoaded', function() {
-            const featureCards = document.querySelectorAll('.feature-card');
-            
-            function checkScroll() {
-                featureCards.forEach(card => {
-                    const cardTop = card.getBoundingClientRect().top;
-                    const windowHeight = window.innerHeight;
-                    
-                    if (cardTop < windowHeight * 0.9) {
-                        card.style.animation = `fadeInUp 0.5s ease forwards ${card.style.animationDelay}`;
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', checkScroll);
-            checkScroll(); // Initial check
-            
-            // Header scroll effect
-            const header = document.querySelector('header');
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.style.padding = '5px 0';
-                    header.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
-                } else {
-                    header.style.padding = '0';
-                    header.style.backgroundColor = 'var(--darker-bg)';
-                }
+        // Close menu when clicking on a nav link
+        const navLinks = document.querySelectorAll('.nav-menu ul li a');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
             });
         });
-    </script>
-</body>
-</html>
+        
+        // Header background on scroll
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // FAQ Accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+        
+        // Particle Animation
+        class Particle {
+            constructor(canvas, options) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = options.

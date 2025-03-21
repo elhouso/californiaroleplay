@@ -6,13 +6,13 @@
     <title>California Roleplay | Emergency Response: Liberty County</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0a0a0c;
-            --accent-color: #2563eb;
-            --text-color: #f8fafc;
-            --secondary-text: #94a3b8;
+            --bg-color: #000000;
+            --accent-color: #0066ff;
+            --text-color: #ffffff;
+            --secondary-text: #aaaaaa;
         }
         
         * {
@@ -22,7 +22,7 @@
         }
         
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
@@ -31,31 +31,31 @@
         .blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.15;
+            filter: blur(70px);
+            opacity: 0.2;
             background: var(--accent-color);
             z-index: 0;
         }
         
         #blob1 {
-            width: 600px;
-            height: 600px;
-            top: -100px;
-            left: -200px;
+            width: 700px;
+            height: 700px;
+            top: -200px;
+            left: -300px;
         }
         
         #blob2 {
-            width: 400px;
-            height: 400px;
-            top: 600px;
-            right: -100px;
+            width: 500px;
+            height: 500px;
+            top: 500px;
+            right: -200px;
         }
         
         #blob3 {
-            width: 500px;
-            height: 500px;
-            bottom: 0;
-            left: 40%;
+            width: 600px;
+            height: 600px;
+            bottom: -200px;
+            left: 30%;
         }
         
         header {
@@ -63,7 +63,7 @@
             top: 0;
             width: 100%;
             padding: 1.5rem 0;
-            background-color: rgba(10, 10, 12, 0.8);
+            background-color: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
             z-index: 100;
             transition: all 0.3s ease;
@@ -71,7 +71,7 @@
         
         header.scrolled {
             padding: 1rem 0;
-            background-color: rgba(10, 10, 12, 0.95);
+            background-color: rgba(0, 0, 0, 0.9);
         }
         
         .container {
@@ -154,11 +154,12 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
         }
         
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 0 30px rgba(0, 102, 255, 0.7);
         }
         
         section {
@@ -184,16 +185,20 @@
         }
         
         .feature-card {
-            background-color: rgba(30, 41, 59, 0.4);
+            background-color: rgba(20, 20, 20, 0.5);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 102, 255, 0.1);
             border-radius: 10px;
             padding: 2rem;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             cursor: default;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .feature-card:hover {
             transform: translateY(-10px);
+            border-color: rgba(0, 102, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 102, 255, 0.1);
         }
         
         .feature-card h3 {
@@ -214,7 +219,7 @@
         
         .faq-item {
             margin-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            border-bottom: 1px solid rgba(170, 170, 170, 0.2);
             padding-bottom: 1.5rem;
         }
         
@@ -252,7 +257,7 @@
         }
         
         footer {
-            background-color: rgba(15, 23, 42, 0.8);
+            background-color: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(10px);
             padding: 2rem 0;
             text-align: center;
@@ -286,9 +291,19 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 102, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 102, 255, 0); }
+        }
+        
         .animated {
             opacity: 0;
             animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
         }
         
         .delay-1 { animation-delay: 0.2s; }
@@ -337,9 +352,9 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content animated">
-                <h1>Experience <span class="highlight">California Roleplay</span> on ER:LC</h1>
-                <p>Join the most immersive roleplay server in Emergency Response: Liberty County. Create your story, build your reputation, and become part of our growing community.</p>
-                <a href="https://discord.gg/HSNAfcGXQ2" class="btn">Join Now</a>
+                <h1>Experience Elite <span class="highlight">Roleplay</span> in Liberty County</h1>
+                <p>Join California Roleplay, the premier server for Emergency Response: Liberty County. Live your dream career, build relationships, and immerse yourself in our authentic roleplay community.</p>
+                <a href="#join" class="btn pulse">Join Server</a>
             </div>
         </div>
     </section>
@@ -348,37 +363,37 @@
     <section id="features">
         <div class="container">
             <h2 class="animated">Server Features</h2>
-            <p class="section-description animated delay-1">Discover what makes California Roleplay the premier roleplay experience in Emergency Response: Liberty County.</p>
+            <p class="section-description animated delay-1">Discover what makes California Roleplay the most immersive server in Emergency Response: Liberty County.</p>
             
             <div class="features">
                 <div class="feature-card animated delay-1">
-                    <h3>Realistic Economy</h3>
-                    <p>Experience a dynamic economy with jobs, realistic salaries, and progression systems that reward dedication.</p>
+                    <h3>Advanced Economy</h3>
+                    <p>Experience our dynamic economy with realistic salaries, property ownership, and unique progression systems that reward your dedication.</p>
                 </div>
                 
                 <div class="feature-card animated delay-2">
-                    <h3>Active Staff Team</h3>
-                    <p>Our dedicated staff team ensures a fair and enjoyable environment for all members of our community.</p>
+                    <h3>Professional Staff</h3>
+                    <p>Our dedicated staff team ensures a fair, balanced, and enjoyable environment for all members of our growing community.</p>
                 </div>
                 
                 <div class="feature-card animated delay-3">
-                    <h3>Custom Events</h3>
-                    <p>Participate in regular server events including bank robberies, hostage situations, and special holiday activities.</p>
+                    <h3>Custom Scenarios</h3>
+                    <p>Participate in server-wide events including high-stakes robberies, hostage situations, and special holiday activities.</p>
                 </div>
                 
                 <div class="feature-card animated delay-2">
-                    <h3>Advanced Roleplay</h3>
-                    <p>Immerse yourself in realistic scenarios with our custom roleplay guidelines and supportive community.</p>
+                    <h3>Career Paths</h3>
+                    <p>Choose from law enforcement, emergency services, civilian careers, or criminal organizations with our detailed rank systems.</p>
                 </div>
                 
                 <div class="feature-card animated delay-3">
-                    <h3>Career Progression</h3>
-                    <p>Climb the ranks in law enforcement, emergency services, or criminal organizations with our rank progression system.</p>
+                    <h3>Community Focus</h3>
+                    <p>Join a supportive community where your voice matters. Regular feedback sessions and community votes shape our server's future.</p>
                 </div>
                 
                 <div class="feature-card animated delay-4">
-                    <h3>Custom Discord Integration</h3>
-                    <p>Stay connected with our community through our feature-rich Discord server with custom bots and channels.</p>
+                    <h3>Custom Discord</h3>
+                    <p>Connect with our community through our feature-rich Discord with custom bots, channels, and seamless game integration.</p>
                 </div>
             </div>
         </div>
@@ -388,13 +403,13 @@
     <section id="about">
         <div class="container">
             <h2 class="animated">About California Roleplay</h2>
-            <p class="section-description animated delay-1">Learn about our server's mission and the team behind the experience.</p>
+            <p class="section-description animated delay-1">The story behind our server and the team that makes it possible.</p>
             
             <div class="about-content">
                 <div class="about-text animated delay-2">
-                    <p>California Roleplay was founded in 2023 with a mission to create the most immersive and enjoyable roleplay experience possible in Emergency Response: Liberty County. Our server is built on the principles of realistic roleplay, community engagement, and continuous improvement.</p>
-                    <p>Our team consists of experienced roleplayers, developers, and community managers who are passionate about creating an environment where everyone can enjoy their time and create memorable experiences.</p>
-                    <p>From humble beginnings, we've grown to become one of the most popular roleplay servers in the game, with hundreds of active members and a reputation for quality and innovation.</p>
+                    <p>California Roleplay was established in 2023 with one goal: to create the most authentic roleplay experience in Emergency Response: Liberty County. What began as a small community of passionate roleplayers has grown into one of the most respected servers in the game.</p>
+                    <p>Our team consists of experienced gamers, developers, and community managers who are dedicated to creating an environment where every player can thrive. We believe in the power of immersive roleplay to create memorable experiences and lasting friendships.</p>
+                    <p>With thousands of active members and countless stories created, we continue to evolve and improve, setting the standard for what a roleplay server should be.</p>
                 </div>
             </div>
         </div>
@@ -404,41 +419,41 @@
     <section id="faq">
         <div class="container">
             <h2 class="animated">Frequently Asked Questions</h2>
-            <p class="section-description animated delay-1">Find answers to common questions about our server and community.</p>
+            <p class="section-description animated delay-1">Find answers to common questions about joining and playing on our server.</p>
             
             <div class="faq-list">
                 <div class="faq-item animated delay-1">
                     <div class="faq-question">How do I join California Roleplay?</div>
                     <div class="faq-answer">
-                        <p>To join California Roleplay, you need to join our Discord server first, complete a simple application process, and then you'll receive instructions on how to join our game server in Emergency Response: Liberty County.</p>
+                        <p>To join our server, you'll need to join our Discord first, complete a brief application, and then follow the instructions to join our private server in Emergency Response: Liberty County.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item animated delay-2">
-                    <div class="faq-question">Are there age requirements?</div>
+                    <div class="faq-question">Is there an age requirement?</div>
                     <div class="faq-answer">
-                        <p>Yes, we require all members to be at least 13 years old to join our community, in compliance with Discord's Terms of Service.</p>
+                        <p>Yes, all members must be at least 13 years old to join our community, in accordance with Discord's Terms of Service and to maintain a mature roleplay environment.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item animated delay-2">
-                    <div class="faq-question">What roles can I play on the server?</div>
+                    <div class="faq-question">What careers can I choose?</div>
                     <div class="faq-answer">
-                        <p>Our server offers a wide range of roles including law enforcement (police, sheriff, highway patrol), emergency services (fire, EMS), civilian jobs, and criminal organizations. Each role has its own unique progression system and benefits.</p>
+                        <p>We offer multiple career paths including law enforcement (police, sheriff, highway patrol), emergency services (fire, EMS), civilian roles (taxi driver, mechanic, store owner), and criminal organizations. Each path has its own unique progression system.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item animated delay-3">
-                    <div class="faq-question">Do I need to own Emergency Response: Liberty County?</div>
+                    <div class="faq-question">Do I need to own the game?</div>
                     <div class="faq-answer">
-                        <p>Yes, you'll need to own the game Emergency Response: Liberty County on Roblox to play on our server. The game itself has a small purchase price on the Roblox platform.</p>
+                        <p>Yes, you'll need to own Emergency Response: Liberty County on Roblox to play on our server. The game itself costs a small amount of Robux on the Roblox platform.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item animated delay-3">
-                    <div class="faq-question">How are rules enforced on the server?</div>
+                    <div class="faq-question">How are rules enforced?</div>
                     <div class="faq-answer">
-                        <p>We have a dedicated team of moderators and administrators who monitor the server and ensure rules are being followed. We use a strike system for rule violations, with consequences ranging from warnings to temporary or permanent bans depending on the severity and frequency of violations.</p>
+                        <p>We have a dedicated team of moderators who ensure rules are followed. We use a progressive discipline system, with consequences ranging from warnings to permanent bans depending on the severity of violations.</p>
                     </div>
                 </div>
             </div>
@@ -449,10 +464,10 @@
     <section id="join">
         <div class="container join-us">
             <h2 class="animated">Join California Roleplay Today</h2>
-            <p class="section-description animated delay-1">Ready to start your journey in the most immersive roleplay server for Emergency Response: Liberty County?</p>
+            <p class="section-description animated delay-1">Ready to begin your journey in the most immersive roleplay server for Emergency Response: Liberty County?</p>
             
             <div class="animated delay-2">
-                <a href="https://discord.gg/HSNAfcGXQ2" class="btn">Join Our Discord</a>
+                <a href="#" class="btn pulse">Join Our Discord</a>
             </div>
         </div>
     </section>
@@ -463,13 +478,13 @@
             <a href="#" class="logo">California<span>RP</span></a>
             
             <div class="socials">
-                <a href="https://discord.gg/HSNAfcGXQ2"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
                 <a href="#"><i class="fab fa-tiktok"></i></a>
             </div>
             
-            <p class="copyright">© 2025 California Roleplay. All rights reserved. Not affiliated with Emergency Response: Liberty County or Roblox.</p>
+            <p class="copyright">© 2025 California Roleplay. Not affiliated with Emergency Response: Liberty County or Roblox.</p>
         </div>
     </footer>
     

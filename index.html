@@ -1,618 +1,724 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>California Roleplay | ERLC</title>
-    <link rel="icon" href="/api/placeholder/32/32" type="image/png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #ff3e3e;
-            --secondary: #3e6aff;
-            --accent: #ff9d3e;
-            --bg: #080808;
-            --card-bg: rgba(20, 20, 20, 0.7);
-            --text: #f0f0f0;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-            color: var(--text);
-        }
-        
-        body {
-            background-color: var(--bg);
-            overflow-x: hidden;
-        }
-        
-        .noise {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=');
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .blob {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.15;
-            z-index: -1;
-            animation: blob-float 20s infinite alternate ease-in-out;
-        }
-        
-        .blob:nth-child(1) {
-            background-color: var(--primary);
-            top: -200px;
-            left: -200px;
-            animation-delay: 0s;
-        }
-        
-        .blob:nth-child(2) {
-            background-color: var(--secondary);
-            bottom: -200px;
-            right: -200px;
-            animation-delay: 5s;
-        }
-        
-        .blob:nth-child(3) {
-            background-color: var(--accent);
-            bottom: 30%;
-            left: 20%;
-            animation-delay: 10s;
-        }
-        
-        @keyframes blob-float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 20px) scale(1.1); }
-            100% { transform: translate(-30px, -10px) scale(0.9); }
-        }
-        
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 3rem;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .logo img {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-        
-        .logo h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        
-        nav ul {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-        
-        nav a {
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: all 0.3s ease;
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.3s ease;
-        }
-        
-        nav a:hover {
-            opacity: 0.8;
-        }
-        
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fade-in 0.8s 0.2s forwards ease-out;
-        }
-        
-        .hero p {
-            font-size: 1.5rem;
-            max-width: 800px;
-            margin-bottom: 2.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fade-in 0.8s 0.4s forwards ease-out;
-        }
-        
-        @keyframes fade-in {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fade-in 0.8s 0.6s forwards ease-out;
-        }
-        
-        .btn {
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(0);
-            transition: transform 0.5s ease;
-            border-radius: 30px;
-        }
-        
-        .btn:hover::before {
-            transform: scale(1);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 62, 62, 0.3);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--text);
-            box-shadow: 0 5px 15px rgba(62, 106, 255, 0.1);
-        }
-        
-        .btn-discord {
-            background: #5865F2;
-            color: white;
-            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
-        }
-
-        .section {
-            padding: 8rem 3rem 4rem;
-            position: relative;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        .feature-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            background: rgba(30, 30, 30, 0.8);
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .feature-card p {
-            color: rgba(240, 240, 240, 0.8);
-            line-height: 1.6;
-        }
-        
-        .police-feature {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .police-feature::before,
-        .police-feature::after {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            top: 20px;
-            right: 20px;
-            opacity: 0;
-        }
-        
-        .police-feature::before {
-            background-color: rgba(255, 0, 0, 0.7);
-            box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.5);
-            animation: police-lights 3s infinite;
-        }
-        
-        .police-feature::after {
-            background-color: rgba(0, 0, 255, 0.7);
-            box-shadow: 0 0 20px 5px rgba(0, 0, 255, 0.5);
-            animation: police-lights 3s 1.5s infinite;
-        }
-        
-        @keyframes police-lights {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-        
-        .faq {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .faq-item {
-            margin-bottom: 1.5rem;
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        .faq-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 1.5rem;
-            cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        
-        .faq-question::after {
-            content: '+';
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .faq-item.active .faq-question::after {
-            transform: rotate(45deg);
-        }
-        
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease, padding 0.5s ease;
-            padding: 0 1.5rem;
-            color: rgba(240, 240, 240, 0.8);
-            line-height: 1.6;
-        }
-        
-        .faq-item.active .faq-answer {
-            max-height: 300px;
-            padding: 0 1.5rem 1.5rem;
-        }
-        
-        footer {
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 3rem;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 4rem;
-        }
-        
-        footer p {
-            opacity: 0.7;
-            margin-bottom: 1rem;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .social-link:hover {
-            transform: translateY(-5px);
-            background-color: var(--primary);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            header {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            nav ul {
-                gap: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-            }
-            
-            .section {
-                padding: 6rem 1.5rem 3rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>California Roleplay | ER:LC Roleplay Server</title>
+  <link rel="icon" href="/api/placeholder/32/32" id="favicon">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #121212;
+      --accent: #e63946;
+      --secondary-accent: #4361ee;
+      --text: #f1faee;
+      --hover-bg: rgba(255, 255, 255, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+    }
+    
+    body {
+      background-color: var(--primary);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    
+    .background-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('/api/placeholder/1920/1080');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.2) blur(3px);
+      z-index: -2;
+    }
+    
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.3;
+      z-index: -1;
+      transition: all 3s ease-in-out;
+    }
+    
+    #blob1 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent);
+      top: -100px;
+      left: -100px;
+      animation: float1 20s infinite linear;
+    }
+    
+    #blob2 {
+      width: 300px;
+      height: 300px;
+      background: var(--secondary-accent);
+      bottom: -50px;
+      right: -50px;
+      animation: float2 15s infinite linear;
+    }
+    
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(50px, 100px); }
+      50% { transform: translate(100px, 50px); }
+      75% { transform: translate(50px, 150px); }
+    }
+    
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-50px, -100px); }
+      50% { transform: translate(-100px, -50px); }
+      75% { transform: translate(-70px, -120px); }
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 0;
+      z-index: 1000;
+      background: rgba(18, 18, 18, 0.8);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    header.scrolled {
+      padding: 10px 0;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .logo img {
+      height: 40px;
+      transition: transform 0.3s ease;
+    }
+    
+    .logo:hover img {
+      transform: scale(1.1);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 5px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-links a:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--hover-bg);
+      transition: all 0.3s ease;
+      z-index: -1;
+    }
+    
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+    
+    .nav-links a:hover:before {
+      left: 0;
+    }
+    
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 70px;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      animation: fadeUp 1s ease;
+    }
+    
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      font-weight: 800;
+    }
+    
+    h1 span {
+      color: var(--accent);
+    }
+    
+    .tagline {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      opacity: 0.8;
+    }
+    
+    .buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .btn-primary {
+      background: var(--accent);
+      color: var(--text);
+      border: none;
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--secondary-accent);
+    }
+    
+    .btn:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .btn:hover:after {
+      opacity: 1;
+    }
+    
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn i {
+      font-size: 1.2rem;
+    }
+    
+    .section {
+      padding: 100px 0;
+      position: relative;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .feature-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--accent);
+    }
+    
+    .feature-card p {
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+    
+    .police-feature {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .police-feature::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2));
+      z-index: -1;
+      animation: policeFlash 3s infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes policeFlash {
+      0% { opacity: 0.3; }
+      25% { opacity: 0.5; background: rgba(255, 0, 0, 0.2); }
+      50% { opacity: 0.3; }
+      75% { opacity: 0.5; background: rgba(0, 0, 255, 0.2); }
+      100% { opacity: 0.3; }
+    }
+    
+    .faq {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      background: rgba(255, 255, 255, 0.05);
+      margin-bottom: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .faq-question {
+      padding: 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-question:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .faq-question i {
+      transition: all 0.3s ease;
+    }
+    
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      opacity: 0;
+      line-height: 1.6;
+    }
+    
+    .faq-item.active .faq-question {
+      color: var(--accent);
+    }
+    
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+    
+    .faq-item.active .faq-answer {
+      max-height: 1000px;
+      padding: 0 20px 20px;
+      opacity: 1;
+    }
+    
+    footer {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 50px 0 30px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    
+    .footer-logo span {
+      color: var(--accent);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .social-links a {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .social-links a:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: -1;
+      transform: scale(0);
+      border-radius: 50%;
+    }
+    
+    .social-links a:hover {
+      transform: translateY(-5px);
+      color: white;
+    }
+    
+    .social-links a:hover:after {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-top: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: var(--primary);
+        padding: 20px;
+        flex-direction: column;
+        gap: 10px;
+        transform: translateY(-200%);
+        transition: all 0.3s ease;
+        opacity: 0;
+      }
+      
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      
+      .menu-btn {
+        display: block;
+        cursor: pointer;
+        font-size: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .buttons {
+        flex-direction: column;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/poppins/2.9.4/poppins.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Noise texture overlay -->
-    <div class="noise"></div>
-    
-    <!-- Animated background blobs -->
-    <div class="blob"></div>
-    <div class="blob"></div>
-    <div class="blob"></div>
-    
-    <!-- Header with navigation -->
-    <header>
-        <div class="logo">
-            <img src="/api/placeholder/50/50" alt="California Roleplay Logo">
-            <h1>California Roleplay</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="https://discord.gg/HSNAfcGXQ2" target="_blank" rel="noopener">Discord</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <!-- Hero section -->
-    <section id="home" class="hero">
-        <h1>California Roleplay</h1>
-        <p>Experience the ultimate ERLC roleplay server with realistic scenarios, active community, and immersive gameplay.</p>
-        <div class="cta-buttons">
-            <a href="https://discord.gg/HSNAfcGXQ2" class="btn btn-discord" target="_blank" rel="noopener">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09-.01-.02-.04-.03-.07-.03-1.5.26-2.93.71-4.27 1.33-.01 0-.02.01-.03.02-2.72 4.07-3.47 8.03-3.1 11.95 0 .02.01.04.03.05 1.8 1.32 3.53 2.12 5.24 2.65.03.01.06 0 .07-.02.4-.55.76-1.13 1.07-1.74.02-.04 0-.08-.04-.09-.57-.22-1.11-.48-1.64-.78-.04-.02-.04-.08-.01-.11.11-.08.22-.17.33-.25.02-.02.05-.02.07-.01 3.44 1.57 7.15 1.57 10.55 0 .02-.01.05-.01.07.01.11.09.22.17.33.26.04.03.04.09-.01.11-.52.31-1.07.56-1.64.78-.04.01-.05.06-.04.09.32.61.68 1.19 1.07 1.74.03.02.06.02.09.01 1.72-.53 3.45-1.33 5.25-2.65.02-.01.03-.03.03-.05.44-4.53-.73-8.46-3.1-11.95-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.83 2.12-1.89 2.12z"/></svg>
-                Join our Discord
-            </a>
-            <a href="https://gitbook.com" class="btn btn-secondary" target="_blank" rel="noopener">View Rules</a>
-        </div>
-    </section>
-    
-    <!-- Features section -->
-    <section id="features" class="section">
-        <h2 class="section-title">Features</h2>
-        <div class="features">
-            <div class="feature-card">
-                <h3>Active Community</h3>
-                <p>Join our thriving community of roleplayers who are passionate about creating immersive and realistic scenarios.</p>
-            </div>
-            <div class="feature-card police-feature">
-                <h3>Police Department</h3>
-                <p>Join the CRPD and enforce the law, respond to emergencies, and keep the city safe from criminals.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Fire & EMS</h3>
-                <p>Save lives as part of our emergency medical and fire services. Respond to accidents, fires, and medical emergencies.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Criminal Organizations</h3>
-                <p>Join existing criminal organizations or create your own. Plan heists, control territory, and evade law enforcement.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Civilian Life</h3>
-                <p>Live a civilian life with various job opportunities, own businesses, and interact with the community.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Custom Events</h3>
-                <p>Participate in regular server events, from major crime scenarios to natural disasters and special celebrations.</p>
-            </div>
-        </div>
-    </section>
-    
-    <!-- FAQ section -->
-    <section id="faq" class="section">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <div class="faq">
-            <div class="faq-item">
-                <div class="faq-question">How do I join the server?</div>
-                <div class="faq-answer">
-                    <p>To join our server, first join our Discord server using the link provided. Then follow the instructions in the #getting-started channel to apply for whitelist and join the game.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">How do I apply for a department?</div>
-                <div class="faq-answer">
-                    <p>Department applications are available in our Discord server. Navigate to the #department-applications channel and follow the instructions to apply for your preferred department.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Are there age requirements?</div>
-                <div class="faq-answer">
-                    <p>Yes, we require all members to be at least 14 years old to join our community. Some departments may have higher age requirements.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">What are the server rules?</div>
-                <div class="faq-answer">
-                    <p>Our server has a comprehensive set of rules to ensure a fair and enjoyable experience for everyone. You can view the complete rules on our GitBook page, accessible via the "View Rules" button on our homepage.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">How can I report a player?</div>
-                <div class="faq-answer">
-                    <p>If you need to report a player for breaking the rules, please use the #report-a-player channel in our Discord server. Make sure to provide evidence such as screenshots or video recordings when applicable.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <a href="https://discord.gg/HSNAfcGXQ2" class="btn btn-discord" target="_blank" rel="noopener">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09-.01-.02-.04-.03-.07-.03-1.5.26-2.93.71-4.27 1.33-.01 0-.02.01-.03.02-2.72 4.07-3.47 8.03-3.1 11.95 0 .02.01.04.03.05 1.8 1.32 3.53 2.12 5.24 2.65.03.01.06 0 .07-.02.4-.55.76-1.13 1.07-1.74.02-.04 0-.08-.04-.09-.57-.22-1.11-.48-1.64-.78-.04-.02-.04-.08-.01-.11.11-.08.22-.17.33-.25.02-.02.05-.02.07-.01 3.44 1.57 7.15 1.57 10.55 0 .02-.01.05-.01.07.01.11.09.22.17.33.26.04.03.04.09-.01.11-.52.31-1.07.56-1.64.78-.04.01-.05.06-.04.09.32.61.68 1.19 1.07 1.74.03.02.06.02.09.01 1.72-.53 3.45-1.33 5.25-2.65.02-.01.03-.03.03-.05.44-4.53-.73-8.46-3.1-11.95-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.83 2.12-1.89 2.12z"/></svg>
-            Join our Discord
-        </a>
-        <p>&copy; 2025 California Roleplay. All rights reserved.</p>
-        <p>Emergency Response: Liberty County is a property of Roblox. We are not affiliated with Roblox.</p>
-    </footer>
+  <div class="background-overlay"></div>
+  <div class="blob" id="blob1"></div>
+  <div class="blob" id="blob2"></div>
 
-    <script>
-        // Handle FAQ accordion
-        document.querySelectorAll('.faq-question').forEach(item => {
-            item.addEventListener('click', event => {
-                const parent = item.parentElement;
-                parent.classList.toggle('active');
-            });
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">
+          <img src="/api/placeholder/40/40" alt="California Roleplay Logo" id="nav-logo">
+          <span>California</span> Roleplay
+        </a>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="https://discord.gg/HSNAfcGXQ2" target="_blank">Discord</a></li>
+        </ul>
+        <div class="menu-btn">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>California <span>Roleplay</span></h1>
+        <p class="tagline">The premier Emergency Response: Liberty County roleplay experience</p>
+        <div class="buttons">
+          <a href="https://discord.gg/HSNAfcGXQ2" class="btn btn-primary" target="_blank">
+            <i class="fab fa-discord"></i> Join our Discord
+          </a>
+          <a href="https://gitbook.com" class="btn btn-secondary" target="_blank">
+            <i class="fas fa-book"></i> View Rules
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="section-title">Features</h2>
+      <div class="features">
+        <div class="feature-card">
+          <h3>Immersive Roleplay</h3>
+          <p>Experience Emergency Response: Liberty County like never before with our realistic roleplay scenarios and dedicated community of players.</p>
+        </div>
+        <div class="feature-card police-feature">
+          <h3>Police Department</h3>
+          <p>Join our professional police force, respond to calls, enforce the law, and keep the streets of Liberty County safe for all citizens.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Fire Department</h3>
+          <p>Become a firefighter and save lives. Respond to fires, accidents, and medical emergencies throughout the county.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Civilian Life</h3>
+          <p>Live life as a civilian with numerous job opportunities, housing options, and social interactions with other players.</p>
+        </div>
+        <div class="feature-card police-feature">
+          <h3>Sheriff's Office</h3>
+          <p>Patrol the county areas, enforce laws, and work alongside the police department to maintain order throughout the region.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Active Community</h3>
+          <p>Join our thriving community of roleplayers, make new friends, and participate in regular events and competitions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-question">
+            How do I join California Roleplay? <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>To join California Roleplay, simply join our Discord server using the button above, read our rules on GitBook, and follow the application process detailed in our Discord server.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            What roles are available? <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We offer a variety of roles including law enforcement (police and sheriff), fire department, emergency medical services, and civilian roles including various jobs and businesses.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            Do I need to own Emergency Response: Liberty County? <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, you need to own the Roblox game "Emergency Response: Liberty County" to participate in our roleplay server.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            Are there age requirements? <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We welcome players of all ages, but we expect all members to behave maturely and follow our community guidelines and rules.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            How often do you host events? <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We host regular events including training sessions, community gatherings, competitions, and special roleplay scenarios. Check our Discord for the event schedule.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span>California</span> Roleplay
+        </div>
+        <div class="social-links">
+          <a href="https://discord.gg/HSNAfcGXQ2" target="_blank"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p class="copyright">© 2025 California Roleplay. All rights reserved. Not affiliated with Roblox or PoliceSimulator LLC.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Handle header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+    
+    // Handle mobile menu
+    const menuBtn = document.querySelector('.menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuBtn.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Handle FAQ accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all items
+        faqItems.forEach(faq => {
+          faq.classList.remove('active');
         });
         
-        // Animate elements on scroll
-        const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.feature-card, .faq-item');
-            
-            elements.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-                
-                if (rect.top <= windowHeight * 0.8) {
-                    el.classList.add('visible');
-                    // Add slight delay between each card animation
-                    const delay = Array.from(el.parentNode.children).indexOf(el) * 0.1;
-                    el.style.transitionDelay = `${delay}s`;
-                }
-            });
-        };
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+    
+    // Animate blobs
+    function animateBlobs() {
+      const blob1 = document.getElementById('blob1');
+      const blob2 = document.getElementById('blob2');
+      
+      setInterval(() => {
+        const randomX1 = Math.random() * 50 - 25;
+        const randomY1 = Math.random() * 50 - 25;
         
-        // Initial check
-        window.addEventListener('load', animateOnScroll);
-        // Check on scroll
-        window.addEventListener('scroll', animateOnScroll);
+        const randomX2 = Math.random() * 50 - 25;
+        const randomY2 = Math.random() * 50 - 25;
         
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+        blob1.style.transform = `translate(${randomX1}px, ${randomY1}px)`;
+        blob2.style.transform = `translate(${randomX2}px, ${randomY2}px)`;
+      }, 5000);
+    }
+    
+    animateBlobs();
+
+    // Update favicon and logo with the same image
+    const logoImg = '/api/placeholder/32/32';
+    document.getElementById('favicon').href = logoImg;
+    document.getElementById('nav-logo').src = logoImg;
+  </script>
 </body>
 </html>

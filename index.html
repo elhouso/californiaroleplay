@@ -16,8 +16,6 @@
             --text-color: #ffffff;
             --background-overlay: rgba(0, 0, 0, 0.85);
             --card-bg: rgba(10, 10, 15, 0.7);
-            --police-flash-1: #ff0000;
-            --police-flash-2: #0000ff;
         }
 
         * {
@@ -237,7 +235,7 @@
 
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(5, 1fr);
             gap: 2rem;
         }
 
@@ -279,15 +277,6 @@
             font-size: 2.5rem;
             color: var(--accent-color);
             margin-bottom: 1.5rem;
-        }
-
-        .police-icon {
-            animation: policeFlash 1.5s infinite alternate;
-        }
-
-        @keyframes policeFlash {
-            0% { color: var(--police-flash-1); }
-            100% { color: var(--police-flash-2); }
         }
 
         .feature-card h3 {
@@ -410,7 +399,17 @@
             transform: translateY(-5px);
         }
 
+        @media (max-width: 1200px) {
+            .features {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .nav-links {
                 position: fixed;
                 top: 0;
@@ -441,6 +440,12 @@
 
             .btn {
                 margin: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .features {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -493,7 +498,7 @@
                 <p>Join hundreds of active roleplayers in a vibrant and welcoming community. Make new friends and enjoy immersive gameplay experiences.</p>
             </div>
             <div class="feature-card">
-                <i class="fas fa-shield-alt feature-icon police-icon"></i>
+                <i class="fas fa-shield-alt feature-icon"></i>
                 <h3>Police Department</h3>
                 <p>Join our well-structured police department with realistic ranks, training, and patrol protocols. Enforce the law and keep the community safe.</p>
             </div>
@@ -513,9 +518,29 @@
                 <p>Experience life as a civilian with various jobs, activities, and interactions. Build your character and story in our immersive world.</p>
             </div>
             <div class="feature-card">
-                <i class="fas fa-headset feature-icon police-icon"></i>
+                <i class="fas fa-headset feature-icon"></i>
                 <h3>Professional Staff</h3>
                 <p>Our dedicated staff team ensures a fair, fun, and safe environment for all players. Quick response to reports and active community support.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-calendar-alt feature-icon"></i>
+                <h3>Regular Events</h3>
+                <p>Participate in weekly community events, from major disaster scenarios to fun races and competitions. There's always something exciting happening!</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-graduation-cap feature-icon"></i>
+                <h3>Training Academy</h3>
+                <p>Learn the ropes through our comprehensive training programs for all departments. New players welcome - we'll help you grow into your role.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-briefcase-medical feature-icon"></i>
+                <h3>Medical System</h3>
+                <p>Experience our detailed medical system with realistic injuries, treatments, and recovery processes. Perfect for aspiring virtual healthcare providers.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-building feature-icon"></i>
+                <h3>Custom Facilities</h3>
+                <p>Enjoy our custom-designed police stations, hospitals, fire stations, and more. Each building is crafted for maximum roleplay immersion.</p>
             </div>
         </div>
     </section>
@@ -558,6 +583,60 @@
                 </div>
                 <div class="faq-answer">
                     <p>Our comprehensive rules are available on our GitBook page. Please review them before joining to ensure a positive experience.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    How often are events hosted?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We host multiple events every week, including department-specific training, community-wide scenarios, and special holiday events.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Is there an age requirement?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We require members to be at least 13 years old, with certain leadership positions reserved for members 16+.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    How can I become staff?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Staff applications open periodically based on server needs. Active, positive community members with a good record are considered.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Are there rank-ups in departments?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, all departments have rank structures. Members can advance through active participation, following protocols, and passing rank exams.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I suggest new features?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely! We have a dedicated suggestions channel in our Discord where members can propose new ideas for the server.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    How do I report an issue?
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You can report issues through our ticket system in Discord. Staff members respond promptly to all reports and concerns.</p>
                 </div>
             </div>
         </div>

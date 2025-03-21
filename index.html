@@ -3,42 +3,512 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emergency Response: Liberty County - California Roleplay</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>California Roleplay | Emergency Response: Liberty County</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --accent-color: #2563eb;
+            --text-color: #f8fafc;
+            --secondary-text: #94a3b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            background: var(--accent-color);
+            z-index: 0;
+        }
+        
+        #blob1 {
+            width: 600px;
+            height: 600px;
+            top: -100px;
+            left: -200px;
+        }
+        
+        #blob2 {
+            width: 400px;
+            height: 400px;
+            top: 600px;
+            right: -100px;
+        }
+        
+        #blob3 {
+            width: 500px;
+            height: 500px;
+            bottom: 0;
+            left: 40%;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            background-color: rgba(10, 10, 12, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 1rem 0;
+            background-color: rgba(10, 10, 12, 0.95);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary-text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .highlight {
+            color: var(--accent-color);
+        }
+        
+        p {
+            color: var(--secondary-text);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+        
+        section {
+            padding: 6rem 0;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .section-description {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem auto;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+            cursor: default;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        .faq-answer {
+            display: none;
+            padding-top: 1rem;
+        }
+        
+        .faq-item.active .faq-question::after {
+            content: '-';
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .join-us {
+            text-align: center;
+        }
+        
+        footer {
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .socials a {
+            color: var(--secondary-text);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .socials a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animated {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="blob-container">
-        <div class="blob"></div>
-        <div class="blob"></div>
-        <div class="blob"></div>
-    </div>
+    <!-- Background Blobs -->
+    <div class="blob" id="blob1"></div>
+    <div class="blob" id="blob2"></div>
+    <div class="blob" id="blob3"></div>
+    
+    <!-- Header -->
     <header>
-        <h1>Emergency Response: Liberty County</h1>
-        <h2>California Roleplay Server</h2>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">California<span>RP</span></a>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#about">About Us</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#join">Join Us</a>
+                </div>
+            </nav>
+        </div>
     </header>
-    <main>
-        <section id="features">
-            <h2>Features</h2>
-            <p>Experience realistic roleplay in a dynamic environment with advanced systems for law enforcement, EMS, and fire departments.</p>
-        </section>
-        <section id="about">
-            <h2>About Us</h2>
-            <p>California Roleplay is a community-driven server within Emergency Response: Liberty County, focusing on immersive and realistic roleplay scenarios.</p>
-        </section>
-        <section id="faq">
-            <h2>FAQ</h2>
-            <p>Have questions? Check out our FAQ section for more information about how to join, rules, and more.</p>
-        </section>
-        <section id="join">
-            <h2>Join Us</h2>
-            <p>Ready to join the action? Click below to connect to the California Roleplay server.</p>
-            <button onclick="window.location.href='#'">Join Now</button>
-        </section>
-    </main>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content animated">
+                <h1>Experience California <span class="highlight">Roleplay</span> on Emergency Response</h1>
+                <p>Join the most immersive roleplay server in Emergency Response: Liberty County. Create your story, build your career, and become part of our growing community.</p>
+                <a href="#join" class="btn">Join Now</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2 class="animated">Server Features</h2>
+            <p class="section-description animated delay-1">Discover what makes California Roleplay the premier roleplay experience in Emergency Response: Liberty County.</p>
+            
+            <div class="features">
+                <div class="feature-card animated delay-1">
+                    <h3>Realistic Economy</h3>
+                    <p>Experience a dynamic economy with jobs, realistic salaries, and progression systems that reward dedication.</p>
+                </div>
+                
+                <div class="feature-card animated delay-2">
+                    <h3>Active Staff Team</h3>
+                    <p>Our dedicated staff team ensures a fair and enjoyable environment for all members of our community.</p>
+                </div>
+                
+                <div class="feature-card animated delay-3">
+                    <h3>Custom Events</h3>
+                    <p>Participate in regular server events including bank robberies, hostage situations, and special holiday activities.</p>
+                </div>
+                
+                <div class="feature-card animated delay-2">
+                    <h3>Advanced Roleplay</h3>
+                    <p>Immerse yourself in realistic scenarios with our custom roleplay guidelines and supportive community.</p>
+                </div>
+                
+                <div class="feature-card animated delay-3">
+                    <h3>Career Progression</h3>
+                    <p>Climb the ranks in law enforcement, emergency services, or criminal organizations with our rank progression system.</p>
+                </div>
+                
+                <div class="feature-card animated delay-4">
+                    <h3>Custom Discord Integration</h3>
+                    <p>Stay connected with our community through our feature-rich Discord server with custom bots and channels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Us Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="animated">About California Roleplay</h2>
+            <p class="section-description animated delay-1">Learn about our server's mission and the team behind the experience.</p>
+            
+            <div class="about-content">
+                <div class="about-text animated delay-2">
+                    <p>California Roleplay was founded in 2023 with a mission to create the most immersive and enjoyable roleplay experience possible in Emergency Response: Liberty County. Our server is built on the principles of realistic roleplay, community engagement, and continuous improvement.</p>
+                    <p>Our team consists of experienced roleplayers, developers, and community managers who are passionate about creating an environment where everyone can enjoy their time and create memorable experiences.</p>
+                    <p>From humble beginnings, we've grown to become one of the most popular roleplay servers in the game, with hundreds of active members and a reputation for quality and innovation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <h2 class="animated">Frequently Asked Questions</h2>
+            <p class="section-description animated delay-1">Find answers to common questions about our server and community.</p>
+            
+            <div class="faq-list">
+                <div class="faq-item animated delay-1">
+                    <div class="faq-question">How do I join California Roleplay?</div>
+                    <div class="faq-answer">
+                        <p>To join California Roleplay, you need to join our Discord server first, complete a simple application process, and then you'll receive instructions on how to join our game server in Emergency Response: Liberty County.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animated delay-2">
+                    <div class="faq-question">Are there age requirements?</div>
+                    <div class="faq-answer">
+                        <p>Yes, we require all members to be at least 13 years old to join our community, in compliance with Discord's Terms of Service.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animated delay-2">
+                    <div class="faq-question">What roles can I play on the server?</div>
+                    <div class="faq-answer">
+                        <p>Our server offers a wide range of roles including law enforcement (police, sheriff, highway patrol), emergency services (fire, EMS), civilian jobs, and criminal organizations. Each role has its own unique progression system and benefits.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animated delay-3">
+                    <div class="faq-question">Do I need to own Emergency Response: Liberty County?</div>
+                    <div class="faq-answer">
+                        <p>Yes, you'll need to own the game Emergency Response: Liberty County on Roblox to play on our server. The game itself has a small purchase price on the Roblox platform.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animated delay-3">
+                    <div class="faq-question">How are rules enforced on the server?</div>
+                    <div class="faq-answer">
+                        <p>We have a dedicated team of moderators and administrators who monitor the server and ensure rules are being followed. We use a strike system for rule violations, with consequences ranging from warnings to temporary or permanent bans depending on the severity and frequency of violations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Join Us Section -->
+    <section id="join">
+        <div class="container join-us">
+            <h2 class="animated">Join California Roleplay Today</h2>
+            <p class="section-description animated delay-1">Ready to start your journey in the most immersive roleplay server for Emergency Response: Liberty County?</p>
+            
+            <div class="animated delay-2">
+                <a href="#" class="btn">Join Our Discord</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2023 California Roleplay. All rights reserved.</p>
+        <div class="container">
+            <a href="#" class="logo">California<span>RP</span></a>
+            
+            <div class="socials">
+                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+            
+            <p class="copyright">© 2025 California Roleplay. All rights reserved. Not affiliated with Emergency Response: Liberty County or Roblox.</p>
+        </div>
     </footer>
-    <script src="scripts.js"></script>
+    
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Animate elements when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('.animated').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 </body>
 </html>

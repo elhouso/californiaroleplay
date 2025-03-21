@@ -17,6 +17,20 @@
             margin: 0;
             text-align: center;
             padding: 20px;
+            position: relative;
+            flex-direction: column;
+        }
+        #bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/5X/3/c/9/3/3c9324fed6f71794472414f8bb6f88d5780a5700.jpeg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+            z-index: -2;
         }
         .container {
             background-color: #1c1c1c;
@@ -26,6 +40,8 @@
             max-width: 800px;
             text-align: left;
             overflow-y: auto;
+            position: relative;
+            z-index: 1;
         }
         h1 {
             font-size: 40px;
@@ -55,13 +71,21 @@
             transition: background-color 0.3s ease;
             margin-top: 20px;
             text-align: center;
+            position: relative;
+            bottom: 0;
         }
         .home-btn:hover {
             background-color: #2980b9;
         }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
+    <div id="bg-overlay"></div>
     <div class="container">
         <h1>Regulations</h1>
         
@@ -84,7 +108,9 @@
         <p>(1.6) When arresting another player, you must clearly announce that you're drawing your cuffs (e.g., "cuffs"). Do not run up to a player and cuff them without proper roleplay to detain them.</p>
         <p>(1.7) A minimum of two players is required to rob either the jewelry store or Liberty County Bank.</p>
         
-        <a href="https://californiarp.xyz" class="home-btn">Go to Home</a>
+        <div class="button-container">
+            <a href="https://californiarp.xyz" class="home-btn">Go to Home</a>
+        </div>
     </div>
 </body>
 </html>

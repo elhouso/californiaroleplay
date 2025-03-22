@@ -1,1 +1,134 @@
-<h1>Department of Transportation<h1/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Roleplay | Transportation</title>
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1311782706673090700/1311783848140341388/CRP_Logo.png?ex=67df16e9&is=67ddc569&hm=f26c49cb7a80fce024abb4078c9fd094e2c4c6786c6ff077c2fc45b710350445&" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-color: #0077ff;
+            --accent-hover: #0099ff;
+            --text-color: #ffffff;
+            --background-overlay: rgba(0, 0, 0, 0.85);
+            --card-bg: rgba(10, 10, 15, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-color);
+        }
+
+        body {
+            background-color: black;
+            overflow-x: hidden;
+        }
+
+        #bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/5X/3/c/9/3/3c9324fed6f71794472414f8bb6f88d5780a5700.jpeg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+            z-index: -2;
+        }
+
+        .header {
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, var(--accent-color), #00ddff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            padding: 4rem 5%;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div id="bg-overlay"></div>
+    <div class="header">
+        <h1>Join the Department of Transportation</h1>
+        <p>Serve and protect your community. Become part of a dedicated force committed to justice.</p>
+    </div>
+
+    <div class="features">
+        <div class="feature-card">
+            <i class="fas fa-balance-scale feature-icon"></i>
+            <h3>Honor & Integrity</h3>
+            <p>Uphold the highest standards of professionalism and integrity.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-users feature-icon"></i>
+            <h3>Community Engagement</h3>
+            <p>Work closely with the community to create a safer environment.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-shield-alt feature-icon"></i>
+            <h3>Advanced Training</h3>
+            <p>Receive top-tier training and develop essential law enforcement skills.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-star feature-icon"></i>
+            <h3>Career Growth</h3>
+            <p>Opportunities for advancement and specialization in various departments.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 California Roleplay. All rights reserved.</p>
+    </footer>
+</body>
+</html>

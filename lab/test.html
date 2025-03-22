@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-color: #0077ff;
+            --accent-hover: #0099ff;
+            --text-color: #ffffff;
+            --background-overlay: rgba(0, 0, 0, 0.85);
+            --card-bg: rgba(10, 10, 15, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-color);
+        }
+
+        body {
+            background-color: black;
+            overflow-x: hidden;
+        }
+
+        #bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/5X/3/c/9/3/3c9324fed6f71794472414f8bb6f88d5780a5700.jpeg') center/cover;
+            filter: brightness(0.4);
+            z-index: -2;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .about {
+            padding: 4rem 10%;
+            background: var(--card-bg);
+            border-radius: 10px;
+            margin: 2rem auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="bg-overlay"></div>
+    <nav class="nav">
+        <div class="logo"><img src="logo.png" alt="Logo"></div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Welcome to the Styled Page</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <button class="btn">Get Started</button>
+    </section>
+
+    <section class="about">
+        <h2>About Us</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula nisi nec metus tincidunt, nec molestie magna suscipit.</p>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const navbar = document.querySelector(".nav");
+            window.addEventListener("scroll", function () {
+                navbar.classList.toggle("scrolled", window.scrollY > 50);
+            });
+        });
+    </script>
+</body>
+</html>

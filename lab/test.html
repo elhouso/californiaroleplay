@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Styled Page</title>
+    <title>California Roleplay | Title</title>
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1311782706673090700/1311783848140341388/CRP_Logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent-color: #0077ff;
@@ -34,7 +37,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/5X/3/c/9/3/3c9324fed6f71794472414f8bb6f88d5780a5700.jpeg') center/cover;
+            background-image: url('https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/5X/3/c/9/3/3c9324fed6f71794472414f8bb6f88d5780a5700.jpeg');
+            background-size: cover;
+            background-position: center;
             filter: brightness(0.4);
             z-index: -2;
         }
@@ -47,13 +52,10 @@
             position: fixed;
             top: 0;
             width: 100%;
+            z-index: 100;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-        }
-
-        .nav.scrolled {
-            background: rgba(0, 0, 0, 0.9);
         }
 
         .hero {
@@ -64,61 +66,66 @@
             align-items: center;
             text-align: center;
             padding: 2rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .about {
-            padding: 4rem 10%;
-            background: var(--card-bg);
-            border-radius: 10px;
-            margin: 2rem auto;
-            max-width: 800px;
-            text-align: center;
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent-color), #00ddff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s forwards 0.3s;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .btn {
             padding: 0.8rem 2rem;
-            background: var(--accent-color);
+            background-color: var(--accent-color);
             border: none;
             border-radius: 50px;
+            color: white;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s ease;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 2rem 5%;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div id="bg-overlay"></div>
+    
     <nav class="nav">
-        <div class="logo"><img src="logo.png" alt="Logo"></div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+        <div class="logo">
+            <img src="https://cdn.discordapp.com/attachments/1311782706673090700/1311783848140341388/CRP_Logo.png" height="40" alt="Logo">
+            <span class="logo-text">California Roleplay</span>
         </div>
     </nav>
 
     <section class="hero">
-        <h1>Welcome to the Styled Page</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <button class="btn">Get Started</button>
+        <h1>Welcome to California Roleplay</h1>
+        <a href="#" class="btn">Join Now</a>
     </section>
 
-    <section class="about">
-        <h2>About Us</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula nisi nec metus tincidunt, nec molestie magna suscipit.</p>
-    </section>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const navbar = document.querySelector(".nav");
-            window.addEventListener("scroll", function () {
-                navbar.classList.toggle("scrolled", window.scrollY > 50);
-            });
-        });
-    </script>
+    <footer>
+        <p>&copy; 2025 California Roleplay. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>

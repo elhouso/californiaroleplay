@@ -1,4 +1,4 @@
-# California Roleplay Official Website  
+# [California Roleplay Official Website](https://californiarp.xyz/)
 
 This is the official website for the **California Roleplay** server.  
 Built with love for a friend, this site serves as a hub for information, community engagement and stuff like that.  
